@@ -1,6 +1,5 @@
 package com.example.countriesapp.model;
 
-import com.example.countriesapp.di.ApiComponent;
 import com.example.countriesapp.di.DaggerApiComponent;
 
 import java.util.List;
@@ -8,25 +7,22 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.Single;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-public class CountriesService {
+public class CountriesRepository {
     private static final String BASE_URL = "https://raw.githubusercontent.com";
 
-    private static CountriesService instance;
+    private static CountriesRepository instance;
 
     @Inject
     public CountriesApi api;
 
-    private CountriesService(){
+    private CountriesRepository(){
         DaggerApiComponent.create().inject(this);
     }
 
-    public static CountriesService getInstance(){
+    public static CountriesRepository getInstance(){
         if(instance == null){
-            instance = new CountriesService();
+            instance = new CountriesRepository();
         }
         return instance;
     }

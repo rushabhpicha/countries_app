@@ -1,7 +1,7 @@
 package com.example.countriesapp.di;
 
 import com.example.countriesapp.model.CountriesApi;
-import com.example.countriesapp.model.CountriesService;
+import com.example.countriesapp.model.CountriesRepository;
 
 import dagger.Module;
 import dagger.Provides;
@@ -23,7 +23,7 @@ public class ApiModule {
     }
 
     @Provides
-    public CountriesService providesCountriesService() {
-        return CountriesService.getInstance();
+    public CountriesRepository providesCountriesService() {
+        return CountriesRepository.getInstance();
     }
 }

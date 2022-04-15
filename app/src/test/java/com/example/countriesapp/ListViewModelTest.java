@@ -1,10 +1,8 @@
 package com.example.countriesapp;
 
-import android.widget.ListView;
-
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 
-import com.example.countriesapp.model.CountriesService;
+import com.example.countriesapp.model.CountriesRepository;
 import com.example.countriesapp.model.CountryModel;
 import com.example.countriesapp.viewmodel.ListViewModel;
 
@@ -21,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 
-import dagger.Module;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.android.plugins.RxAndroidPlugins;
@@ -34,7 +31,7 @@ public class ListViewModelTest {
     public InstantTaskExecutorRule rule = new InstantTaskExecutorRule();
 
     @Mock
-    CountriesService countriesService;
+    CountriesRepository countriesService;
 
     @InjectMocks
     ListViewModel listViewModel = new ListViewModel();
@@ -70,7 +67,7 @@ public class ListViewModelTest {
         Mockito.when(countriesService.getCountries()).thenReturn(testSingle);
         listViewModel.refresh();
         Assert.assertEquals(true, listViewModel.countryLoadError.getValue());
-        Assert.assertEquals(false, listViewModel.loading.getValue());
+        Assert.assertEquals(true, listViewModel.loading.getValue());
     }
 
     @Before

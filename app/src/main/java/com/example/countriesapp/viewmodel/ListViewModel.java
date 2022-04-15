@@ -4,15 +4,13 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.countriesapp.di.DaggerApiComponent;
-import com.example.countriesapp.model.CountriesService;
+import com.example.countriesapp.model.CountriesRepository;
 import com.example.countriesapp.model.CountryModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableSingleObserver;
@@ -25,11 +23,10 @@ public class ListViewModel extends ViewModel {
         A LiveData is an object that generates values. When countries generate their values other
         objects receive their values but not simultaneously which means it's an asynchronous job.
 
-        1. LiveData is an observable that generates values. A Mutable Live Data is also an observable which sets
-            the values.
+        1. LiveData is an observable that generates values.
            We can use this observables from other objects in the project which are called observers.
 
-        2. countries will generate values which is a ViewModel and our Model (MainActivity) will receive those
+        2. countries will generate values and our Model (MainActivity) will receive those
            values. This allows the ViewModel to be completely seperated from the View because the ViewModel
            does not care about who receives the information as long as that other component is attached to
            to countries object.
@@ -38,11 +35,11 @@ public class ListViewModel extends ViewModel {
     public MutableLiveData<Boolean> countryLoadError = new MutableLiveData<>();
     public MutableLiveData<Boolean> loading = new MutableLiveData<>();
 
-    // private CountriesService countriesService = CountriesService.getInstance(); // Object of Singleton class CountriesService
+    // private CountriesRepository countriesService = CountriesRepository.getInstance(); // Object of Singleton class CountriesRepository
 
     //CountryService instantiation using Dagger2
     @Inject
-    public CountriesService countriesService;
+    public CountriesRepository countriesService;
 
     public ListViewModel(){
         super();
@@ -66,7 +63,6 @@ public class ListViewModel extends ViewModel {
                 .subscribeWith((new DisposableSingleObserver<List<CountryModel>>(){  // We use DisposableSingleObserver because we are using disposable here which will be cleared when the app is shut
 
                     // This handles the outcome of the API call
-
                     //We will write unit tests for this method
                     @Override
                     public void onSuccess(List<CountryModel> countryModels) {
