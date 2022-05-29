@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         viewModel.refresh();   // This calls the method in ViewModel class which binds the Model to the View and thereby getting the data
 
-        countriesList.setLayoutManager(new LinearLayoutManager(this));  // Setting layout to the adapter
+        countriesList.setLayoutManager(new LinearLayoutManager(this));  // Setting layout to the recycler view
         countriesList.setAdapter(adapter);    // Setting the adapter to the recycler view.
 
         refreshLayout.setOnRefreshListener(() -> {
